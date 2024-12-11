@@ -3,7 +3,6 @@ import json
 import time
 
 req = requests.Session()
-#PASTE HERE
 token = "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzQwMDg2MzcsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3MzM5MjIyMzcsImF1ZCI6InRnLmFpLmpvYnMiLCJpc3MiOiJ0Zy5haS5qb2JzIiwic3ViIjoiNzc2NTAzNjU4OSIsImp0aSI6IjRkbWNjcnFtNGp3ajR0cCJ9.Nxj1tYHc0guBwnRnjH7_17KfJ8071h8jAfQhrRFGTzWKlL-7gPkCkIzA5SUkbd3gtvOo9zJkU5_iWgNxs_jTjnDv8W2_pjtBxz6VYBnAkdLaMUuQTNYqSUS1mzKuVlQMkDG5gTCPIQlsm32XqroW33ZybcXyhXmDO5DIUvDoPpMuphHR53u8tF3HUOgtxBxmMFsLl0AuySYLilyzD3fPC-amG5b_E9eg95JlHOl4wDuKyjhraDQemR9GT1epf2DGGrQesqoEnDt-QL_eiq4Bb_ipNQMgu5A0Ni0cTwhUaz6dkM2W0vQnWnTAHcyzPhj17UcuaEPx5rar3qvLe5-Kw0ackWmOus2KGa-2zCd5LMBbrB9NotkB8W8nFb9vsKnzAvuEvd2ic8byOdHn-Bj1Lua-T0Nd0AbC47pKDEWxom2UkSOM5mdAZ41ghwxpmjCAEQCSG4n5izcyAaGkWRBWYMkk2-JDTrAgUu3FzOZ4cg-Ta5Tpy3QfrX0DU9Ax3cI_DJpbcip8EvwNPLWGqAS84Nb08tkJTtoQNeDS96X03lu4XZwC31zuZWrVJBDamIgyrmbuY89nVnjo6GRn34Bj9XLHQU6sQcf8FvjhFSnt6gNtkAl9w4IHZrDN4nSBFMFAY_9mcroDlVzHizxAV9wjkkBqZOc05fGtcO6ZJ_QDzYw"
 
 headers = {
@@ -30,7 +29,6 @@ def get_balance_info():
         balance = data.get("balance")
         active_farm = data.get("activeFarmingStartedAt")
         print("Balance: " + str(balance))
-        print("Active Farming Started At: " + str(active_farm))
     except requests.RequestException as error:
         print("Error getting farming info:", error)
 
@@ -105,8 +103,10 @@ def claim_task():
         print("Error processing tasks:", error)
 
 if __name__ == "__main__":
-    get_balance_info()
-    finish_farming()
-    claim_task()
-    print("\nWaiting 1 hour before starting again...")
-    time.sleep(60 * 60)
+    while True:
+        get_balance_info()
+        finish_farming()
+        claim_task()
+        print("\nWaiting 1 hour before starting again...")
+        get_balance_info()
+        time.sleep(60 * 60)
